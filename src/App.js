@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Detail from './디테일';
+import Event from './Event';
+import ColorSchemesExample from './네비';
+import data from "./data";
+import Products from './상품정보';
+import Cart from './Cart';
+
+
 
 function App() {
+  const [shoes] = useState(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+      <ColorSchemesExample/>
+        <Routes>
+          <Route path='/' element={<Products shoes={shoes} />}/>
+          <Route path="/detail/:id" element={<Detail shoes={shoes} />}>
+            <Route path='0' element={ <p>첫 주문시 양배추즙 서비스</p>} />
+
+          </Route>
+          <Route path='/event' element={<Event/>} >
+            <Route path='one' element={ <p>첫 주문시 양배추즙 서비스</p>} />
+            <Route path='two' element={<p>생일기념 쿠폰 받기</p>} />
+          </Route>
+          <Route path='/Cart' element={<Cart/>}/>
+        </Routes>
+
+      </Router>
+
+    </>
   );
 }
 
